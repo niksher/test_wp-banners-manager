@@ -1,0 +1,39 @@
+.koran-banners-form {
+	display: block;
+	padding: 50px;
+}
+
+.form__input {
+  display: block;
+  min-width: 500px;
+  padding: 20px;
+}
+
+.form__select {
+  min-width: 500px;
+}
+
+.form__label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+	margin: 20px 0;
+}
+
+.label__text {
+	margin-left: 20px;
+}
+
+.koran-banners-list {
+  padding: 20px;
+}
+
+.koran-banners-list__item {
+  display: flex;
+  width: 900px;
+  justify-content: space-between;
+}
+
+.koran-banners-list__col {
+  width: 33%;
+}
