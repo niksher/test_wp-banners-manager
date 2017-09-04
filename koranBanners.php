@@ -194,6 +194,6 @@ function koran_banners_plugin_options() {
         if (file_exists(__DIR__ . "/out.json")) {
             $json = true;
         }
-        include __DIR__ . './view/list.php';
+        include __DIR__ . '/view/list.php';
     }
 }
