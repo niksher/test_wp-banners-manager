@@ -108,7 +108,7 @@ function koran_banners_plugin_options() {
         $banner = [];
         $formUrl = $_SERVER["REQUEST_URI"];
         
-        include __DIR__ . './view/item.php';
+        include __DIR__ . '/view/item.php';
     }
     if ($_GET["status"] == "edit") {
         if (isset($_POST["id"])) {
@@ -145,7 +145,7 @@ function koran_banners_plugin_options() {
         $banner = $wpdb->get_row("SELECT * FROM $table_name WHERE id=$id");
         $formUrl = $_SERVER["REQUEST_URI"];
         
-        require __DIR__ . './view/item.php';
+        require __DIR__ . '/view/item.php';
     }
     if ($_GET["status"] == "generate") {
         $table_name = $wpdb->prefix . "koran_banners_plugin";
