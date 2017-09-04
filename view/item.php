@@ -22,28 +22,14 @@
     </select>
     <label class="form__label">
         <input 
-            type="datetime-local"
+            type="text"
             class="form__input" 
             name="validFrom" 
             value="<?= $banner->validFrom ?>" 
             placeholder="yyyy-MM-dd'T'HH:mm"
         >
         <span class="label__text">
-            Дата с которой можно показывать баннер. Дата в формате yyyy-MM-dd'T'HH:mmZZZ
-        </span>
-    </label>
-    <label class="form__label">
-        <input 
-            type="number"
-            min="0"
-            max="60"
-            class="form__input" 
-            name="validFromSec" 
-            value="<?= $banner->validFromSec ?>" 
-            placeholder="ss"
-        >
-        <span class="label__text">
-            Дата с которой можно показывать баннер - сукунды. Дата в формате ss
+            Дата с которой можно показывать баннер. Дата в формате yyyy-MM-dd'T'HH:mm:ssZZZ
         </span>
     </label>
     <label class="form__label">
@@ -60,28 +46,14 @@
     </label>
     <label class="form__label">
         <input 
-            type="datetime-local" 
+            type="text" 
             class="form__input" 
             name="validUntil" 
             value="<?= $banner->validUntil ?>" 
             placeholder="yyyy-MM-dd'T'HH:mm"
         >
         <span class="label__text">
-            Дата до которой можно показывать баннер. Дата в формате yyyy-MM-dd'T'HH:mmZZZ
-        </span>
-    </label>
-    <label class="form__label">
-        <input 
-            type="number"
-            min="0"
-            max="60"
-            class="form__input" 
-            name="validUntilSec" 
-            value="<?= $banner->validUntilSec ?>" 
-            placeholder="ss"
-        >
-        <span class="label__text">
-            Дата до которой можно показывать баннер - сукунды. Дата в формате ss
+            Дата до которой можно показывать баннер. Дата в формате yyyy-MM-dd'T'HH:mm:ssZZZ
         </span>
     </label>
     <label class="form__label">

@@ -1,6 +1,7 @@
 $(document).ready(function(){
     function __init() {
         item();
+        datePicker();
     }
     
     function item() {
@@ -25,6 +26,24 @@ $(document).ready(function(){
             $("[name=width]").parent().fadeIn();
             $("[name=height]").parent().fadeIn();
         }
+    }
+    
+    function datePicker() {
+        if ($(".koran-banners-form").length > 0) {
+            $("[name=validFrom]").dateTimePicker({
+                mode: 'dateTime',
+                monthName: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+                dayName: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+                format: 'yyyy-MM-ddTHH:mm:ss'
+            });
+            $("[name=validUntil]").dateTimePicker({
+                mode: 'dateTime',
+                monthName: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+                dayName: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+                format: 'yyyy-MM-ddTHH:mm:ss'
+            });
+        }
+        
     }
     
     
