@@ -22,26 +22,78 @@
     </select>
     <label class="form__label">
         <input 
-            type="text" 
+            type="datetime-local"
             class="form__input" 
             name="validFrom" 
             value="<?= $banner->validFrom ?>" 
-            placeholder="yyyy-MM-dd'T'HH:mm:ssZZZ"
+            placeholder="yyyy-MM-dd'T'HH:mm"
         >
         <span class="label__text">
-            Дата с которой можно показывать баннер. Дата в формате yyyy-MM-dd'T'HH:mm:ssZZZ
+            Дата с которой можно показывать баннер. Дата в формате yyyy-MM-dd'T'HH:mmZZZ
         </span>
     </label>
     <label class="form__label">
         <input 
-            type="text" 
+            type="number"
+            min="0"
+            max="60"
+            class="form__input" 
+            name="validFromSec" 
+            value="<?= $banner->validFromSec ?>" 
+            placeholder="ss"
+        >
+        <span class="label__text">
+            Дата с которой можно показывать баннер - сукунды. Дата в формате ss
+        </span>
+    </label>
+    <label class="form__label">
+        <input 
+            type="text"
+            class="form__input" 
+            name="validFromTimeZone" 
+            value="<?= $banner->validFromTimeZone ?>" 
+            placeholder="0300"
+        >
+        <span class="label__text">
+            Часовая зона для даты с который можно показывать баннер(если пусто - 0300)
+        </span>
+    </label>
+    <label class="form__label">
+        <input 
+            type="datetime-local" 
             class="form__input" 
             name="validUntil" 
             value="<?= $banner->validUntil ?>" 
-            placeholder="yyyy-MM-dd'T'HH:mm:ssZZZ"
+            placeholder="yyyy-MM-dd'T'HH:mm"
         >
         <span class="label__text">
-            Дата до которой можно показывать баннер. Дата в формате yyyy-MM-dd'T'HH:mm:ssZZZ
+            Дата до которой можно показывать баннер. Дата в формате yyyy-MM-dd'T'HH:mmZZZ
+        </span>
+    </label>
+    <label class="form__label">
+        <input 
+            type="number"
+            min="0"
+            max="60"
+            class="form__input" 
+            name="validUntilSec" 
+            value="<?= $banner->validUntilSec ?>" 
+            placeholder="ss"
+        >
+        <span class="label__text">
+            Дата до которой можно показывать баннер - сукунды. Дата в формате ss
+        </span>
+    </label>
+    <label class="form__label">
+        <input 
+            type="text"
+            class="form__input" 
+            name="validUntilTimeZone"
+            value="<?= $banner->validUntilTimeZone ?>" 
+            placeholder="0300"
+        >
+        <span class="label__text">
+            Часовая зона для даты до который можно показывать баннер(если пусто - 0300)
         </span>
     </label>
     <label class="form__label">

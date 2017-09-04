@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    function __init(){
+    function __init() {
         item();
     }
     
@@ -26,6 +26,7 @@ $(document).ready(function(){
             $("[name=height]").parent().fadeIn();
         }
     }
+    
     
     __init();
 });

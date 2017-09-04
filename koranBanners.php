@@ -35,7 +35,11 @@ function koran_banners_install(){
             id mediumint(9) NOT NULL AUTO_INCREMENT,
             type int(1) DEFAULT '0' NOT NULL,
             validFrom varchar(255) NOT NULL COLLATE utf8_general_ci,
+            validFromSec varchar(255) NOT NULL COLLATE utf8_general_ci,
+            validFromTimeZone varchar(255) NOT NULL COLLATE utf8_general_ci,
             validUntil varchar(255) NOT NULL COLLATE utf8_general_ci,
+            validUntilSec varchar(255) NOT NULL COLLATE utf8_general_ci,
+            validUntilTimeZone varchar(255) NOT NULL COLLATE utf8_general_ci,
             title varchar(255) NULL COLLATE utf8_general_ci,
             image varchar(255) NOT NULL COLLATE utf8_general_ci,
             details varchar(255) NOT NULL COLLATE utf8_general_ci,
@@ -46,6 +50,14 @@ function koran_banners_install(){
             );";
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
+    }
+}
+function koran_banners_uninstall(){
+    global $wpdb;
+    $table_name = $wpdb->prefix . "koran_banners_plugin";
+
+    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name) {
+        $wpdb->query("DROP TABLE IF EXISTS $table_name");
     }
 }
 
@@ -70,13 +82,16 @@ function koran_banners_plugin_options() {
         wp_die( __('У вас нет прав доступа на эту страницу.') );
     }
     
+    
     wp_register_style( 'style.css', plugin_dir_url( __FILE__ ) . 'assets/style.css', array());
     wp_enqueue_style( 'style.css');
     
     wp_register_script( 'script.js', plugin_dir_url( __FILE__ ) . 'assets/script.js', array());
     wp_register_script( 'jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js', array());
+    
     wp_enqueue_script( 'jquery.min.js' );
     wp_enqueue_script( 'script.js' );
+    
 
     
     if ($_GET["status"] == "add") {
@@ -85,17 +100,26 @@ function koran_banners_plugin_options() {
            
             $type = (int)$_POST["type"];
             $validFrom = $_POST["validFrom"];
+            $validFromSec = $_POST["validFromSec"] > 10 ? $_POST["validFromSec"] : "0" . $_POST["validFromSec"];
+            $validFromTimeZone = $_POST["validFromTimeZone"] ? $_POST["validFromTimeZone"] : "0300";
             $validUntil = $_POST["validUntil"];
+            $validUntilSec = $_POST["validUntilSec"] > 10 ? $_POST["validUntilSec"] : "0" . $_POST["validUntilSec"];
+            $validUntilTimeZone = $_POST["validUntilTimeZone"] ? $_POST["validUntilTimeZone"] : "0300";
             $title = $_POST["title"];
             $image = $_POST["image"];
             $details = $_POST["details"];
             $detailsTitle = $_POST["detailsTitle"];
-            $width = $_POST["width"];
-            $height = $_POST["height"];
+            $width = (int)$_POST["width"];
+            $height = (int)$_POST["height"];
+                        
             $wpdb->insert($table_name, [
                 "type" => $type
                 , "validFrom" => $validFrom
+                , "validFromSec" => $validFromSec
+                , "validFromTimeZone" => $validFromTimeZone
                 , "validUntil" => $validUntil
+                , "validUntilSec" => $validUntilSec
+                , "validUntilTimeZone" => $validUntilTimeZone
                 , "title" => $title
                 , "image" => $image
                 , "details" => $details
@@ -117,7 +141,11 @@ function koran_banners_plugin_options() {
             $id = (int)$_POST["id"];
             $type = (int)$_POST["type"];
             $validFrom = $_POST["validFrom"];
+            $validFromSec = $_POST["validFromSec"] > 10 ? $_POST["validFromSec"] : "0" . $_POST["validFromSec"];
+            $validFromTimeZone = $_POST["validFromTimeZone"] ? $_POST["validFromTimeZone"] : "0300";
             $validUntil = $_POST["validUntil"];
+            $validUntilSec = $_POST["validUntilSec"] > 10 ? $_POST["validUntilSec"] : "0" . $_POST["validUntilSec"];
+            $validUntilTimeZone = $_POST["validUntilTimeZone"] ? $_POST["validUntilTimeZone"] : "0300";
             $title = $_POST["title"];
             $image = $_POST["image"];
             $details = $_POST["details"];
@@ -128,7 +156,11 @@ function koran_banners_plugin_options() {
             $wpdb->update($table_name, [
                 "type" => $type
                 , "validFrom" => $validFrom
+                , "validFromSec" => $validFromSec
+                , "validFromTimeZone" => $validFromTimeZone
                 , "validUntil" => $validUntil
+                , "validUntilSec" => $validUntilSec
+                , "validUntilTimeZone" => $validUntilTimeZone
                 , "title" => $title
                 , "image" => $image
                 , "details" => $details
@@ -156,8 +188,10 @@ function koran_banners_plugin_options() {
                 $out[] = [
                     "type" => (int)$banner->type
                     , "id" => (int)$banner->id
-                    , "validFrom" => $banner->validFrom
-                    , "validUntil" => $banner->validUntil
+                    , "validFrom" => $banner->validFrom . ":" . $banner->validFromSec 
+                                . "+" . $banner->validFromTimeZone
+                    , "validUntil" => $banner->validUntil . ":" . $banner->validUntilSec 
+                                . "+" . $banner->validUntilTimeZone
                     , "title" => $banner->title
                     , "image" => $banner->image
                     , "details" => $banner->details
@@ -167,8 +201,10 @@ function koran_banners_plugin_options() {
                 $out[] = [
                     "type" => (int)$banner->type
                     , "id" => (int)$banner->id
-                    , "validFrom" => $banner->validFrom
-                    , "validUntil" => $banner->validUntil
+                    , "validFrom" => $banner->validFrom . ":" . $banner->validFromSec 
+                                . "+" . $banner->validFromTimeZone
+                    , "validUntil" => $banner->validUntil . ":" . $banner->validUntilSec 
+                                . "+" . $banner->validUntilTimeZone
                     , "image" => $banner->image
                     , "details" => $banner->details
                     , "detailsTitle" => $banner->detailsTitle
@@ -184,7 +220,7 @@ function koran_banners_plugin_options() {
         $json = [
             "banners" => $out
         ];
-        file_put_contents(__DIR__ . "/out.json", json_encode($json));
+        file_put_contents(__DIR__ . "/out.json", json_encode($json, JSON_UNESCAPED_SLASHES));
         $_GET["status"] = NULL;
     }
     if (!$_GET["status"]) {
